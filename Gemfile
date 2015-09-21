@@ -43,3 +43,6 @@ end
 
 gem 'pg'
 
+gem 'unicorn'
+gem 'capistrano', '~> 3.2.1'
+gem 'capistrano-unicorn-nginx', '~> 3.2.0'
