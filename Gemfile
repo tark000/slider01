@@ -43,6 +43,7 @@ end
 
 gem 'pg'
 
-gem 'unicorn'
-gem 'capistrano', '~> 3.2.1'
-gem 'capistrano-unicorn-nginx', '~> 3.2.0'
+gem 'capistrano'
+gem 'rvm-capistrano'
+gem 'capistrano-bundler' # for capistrano/bundler
+gem 'capistrano-rails' # for capistrano/rails/*
