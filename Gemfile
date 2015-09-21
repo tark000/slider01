@@ -43,7 +43,5 @@ end
 
 gem 'pg'
 
-gem 'capistrano'
+gem 'capistrano', '~> 2.15'
 gem 'rvm-capistrano'
-gem 'capistrano-bundler' # for capistrano/bundler
-gem 'capistrano-rails' # for capistrano/rails/*
