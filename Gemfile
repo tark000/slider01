@@ -44,4 +44,4 @@ end
 gem 'pg'
 
 gem 'capistrano', '~> 2.15'
-gem 'rvm-capistrano'
+gem 'capistrano-rbenv'
