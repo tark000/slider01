@@ -1,0 +1,10 @@
+{
+	"name": "slider-01",
+	"description": "Test slider",
+	"dependencies": {
+		"jquery": "2.0.0",
+		"bootstrap": "3.3.5",
+		"backbone": "1.2.3"
+	}
+
+}
