@@ -43,5 +43,6 @@ end
 
 gem 'pg'
 
+gem 'unicorn'
 gem 'capistrano', '~> 2.15'
 gem 'capistrano-rbenv'

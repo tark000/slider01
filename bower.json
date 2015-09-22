@@ -1,5 +1,5 @@
 {
-	"name": "slider-01",
+	"name": "slider01",
 	"description": "Test slider",
 	"dependencies": {
 		"jquery": "2.0.0",

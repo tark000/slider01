@@ -14,6 +14,9 @@ set :scm, "git"
 set :repository, "https://github.com/tark000/slider01.git"
 set :branch, "master"
 
+set :default_environment, {
+  'PATH' => "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
+}
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true

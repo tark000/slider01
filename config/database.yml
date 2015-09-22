@@ -32,7 +32,7 @@ production:
   adapter: postgresql
   encoding: utf8
   reconnect: false
-  database: slider_db_p
+  database: slider_db_d
   pool: 5
   username: root
   password: "123"
