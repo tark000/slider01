@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 
 	<title>Slider</title>
-	<link rel="stylesheet" type="text/css" href="../frontend/css/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/output.css" />
 
 </head>
 <body>
@@ -12,7 +12,49 @@
 	<div class="c-header"></div>
 	<div class="c-main-content"></div>
 	<div class="c-footer"></div>
-	<script type="text/javascript" src="../frontend/js/build.js"></script>
+
+	<div id="menu"> <!-- Блок меню -->
+	    <ul>
+	        <li><a href="#">Start</a></li>
+	        <li><a href="#success">Success</a></li>
+	        <li><a href="#error">Error</a></li>
+	    </ul>
+	</div>
+
+	<div id="block" class="block">
+	</div>
+
+	<!-- Блок ввода имени пользователя -->
+	<script type="text/template" id="start"> 
+	    <div class="start"> 
+	        <div class="userplace">
+	            <label for="username">Имя пользователя: </label>
+	            <input type="text" id="username" />
+	        </div>
+	        <div class="buttonplace">
+	            <input type="button" value="Проверить" />
+	        </div>
+	    </div>
+	</script>
+
+	<!-- Блок ошибки -->
+	<script type="text/template" id="error">
+	    <div class="error">
+	        Ошибка. Пользователь  <%= username %> не найден.
+	        <a href="#!/">Go back</a>
+	    </div>
+	</script>
+
+	<!-- Блок удачи -->
+	<script type="text/template" id="success">
+	    <div class="success">
+	        Пользователь <%= username %> найден.
+	        <a href="#!/">Go back</a>
+	    </div>        
+	</script>
+
+
+	<script type="text/javascript" src="js/output.js"></script>
 
 </body>
 </html>
