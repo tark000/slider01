@@ -39,58 +39,77 @@
 //     }
 // });
 
+var SlideModel = Backbone.Model.extend({
+	defaults: {
+		description: ""
+	}
+});
+
+var Slides = Backbone.Collection.extend({
+    model: SlideModel
+});
+
+var MySlides = new Slides([
+        { description: "test1"},
+        { description: "test2"},
+        { description: "test3"}
+    ]);
+
+var Slide = Backbone.View.extend({
+	el: $('#block'),
+	defaults: {
+		content: "1"
+	},
+	template: _.template($('.b_slider').html()),
+	render: function () {
+		$(this.el).html(this.template());
+		this.createSlides();
+	},
+	createSlides: function () {
+		console.log(MySlides.models);
+
+		MySlides.each(this.createSlide, this);
+		console.log(this.defaults.content);
+		$('.b_slide_list').html(this.defaults.content);
+	},
+	createSlide: function (slide) {
+		console.log(slide);
+		this.defaults.content += "<li>" + slide.attributes.description + "</li>";
+	}
+
+});
 
 
 
-// var Controller = Backbone.Router.extend({
-//     ushState: true,
-//     routes: {
-//         "": "start", // Пустой hash-тэг
-//         "#": "start", // Пустой hash-тэг
-//         "!/": "start", // Начальная страница
-//         "!/success": "success", // Блок удачи
-//         "!/error": "error" // Блок ошибки
-//     },
+var Controller = Backbone.Router.extend({
+    ushState: true,
+    routes: {
+        "": "slide", // Пустой hash-тэг
+        "#": "slide", // Пустой hash-тэг
+    },
 
-//     start: function () {
-//         appState.set({ state: "start" });
-//     },
+    slide: function () {
+        if (Views.slide != null) {
+            Views.slide.render();
+        }
+    }
+});
 
-//     success: function () {
-//         appState.set({ state: "success" });
-//     },
+var Views = {
+	"slide": new Slide()
+}
 
-//     error: function () {
-//         appState.set({ state: "error" });
-//     }
-// });
+var controller = new Controller(); // Создаём контроллер
 
-// var controller = new Controller(); // Создаём контроллер
+Backbone.history.start();  // Запускаем HTML5 History push 
 
-// Backbone.history.start();  // Запускаем HTML5 History push 
 
-// var block = new Block({ model: appState });
-// appState.trigger("change");
 
-// var UserNameModel = Backbone.Model.extend({
-//     defaults: {
-//         "Name": ""
-//     }
-// });
 
-// var Family = Backbone.Collection.extend({
-//     model: UserNameModel,
-//     ckeckUser: function (username) {
-//         var findResult = this.find(function (user) { return  user.get("Name") == username });
-//         return findResult != null;
-//     }
-// });
 
-// var MyFamily = new Family([
-//         { Name: "test1"},
-//         { Name: "test2"},
-//         { Name: "test3"}
-//     ]);
+
+
+
 
 
 
