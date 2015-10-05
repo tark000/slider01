@@ -1,44 +1,3 @@
-// var AppState = Backbone.Model.extend({
-//     defaults: {
-//         username: "",
-//         state: "start"
-//     }
-// });
-
-// var appState = new AppState();
-
-
-
-// var Block = Backbone.View.extend({
-//     el: $('#block'),
-//     templates: { // Шаблоны на разное состояние
-//         "start": _.template($('#start').html()),
-//         "success": _.template($('#success').html()),
-//         "error": _.template($('#error').html())
-//     },
-//     events: {
-//         "click input:button": "check"
-//     },
-//     initialize: function () { // Подписка на событие модели
-//         this.model.bind('change', this.render, this);
-//     },
-//     render: function () {
-//         var state = this.model.get("state");
-//         $(this.$el).html(this.templates[state](this.model.toJSON()));
-//         controller.navigate("#" + state, false);
-//         return this;
-//     },
-//     check: function () {
-//         var Family = ["Саша", "Юля", "Елизар"];
-//         var username = this.$el.find("input:text").val();
-//         var find = MyFamily.ckeckUser(username);
-//         appState.set({ // Сохранение имени пользователя и состояния
-//             "state": find ? "success" : "error",
-//             "username": username
-//         }); 
-//     }
-// });
-
 var SlideModel = Backbone.Model.extend({
 	defaults: {
 		description: ""
@@ -46,57 +5,86 @@ var SlideModel = Backbone.Model.extend({
 });
 
 var Slides = Backbone.Collection.extend({
-    model: SlideModel
+    model: SlideModel,
+    url: "api/sliders"
 });
 
-var MySlides = new Slides([
-        { description: "test1"},
-        { description: "test2"},
-        { description: "test3"}
-    ]);
+var MySlides = new Slides();
 
+// [
+//         { description: "test1"},
+//         { description: "test2"},
+//         { description: "test3"}
+//     ]
 var Slide = Backbone.View.extend({
 	el: $('#block'),
 	defaults: {
-		content: "1"
+		content: ""
 	},
-	template: _.template($('.b_slider').html()),
+	template: _.template($('.b-slider').html()),
+	initialize: function () {
+		MySlides.fetch();
+	},
 	render: function () {
+
+		console.log(MySlides);
 		$(this.el).html(this.template());
 		this.createSlides();
 	},
 	createSlides: function () {
-		console.log(MySlides.models);
-
 		MySlides.each(this.createSlide, this);
-		console.log(this.defaults.content);
-		$('.b_slide_list').html(this.defaults.content);
+		$('.b-slide-list').html(this.defaults.content);
 	},
 	createSlide: function (slide) {
-		console.log(slide);
+		console.log('slide', slide);
 		this.defaults.content += "<li>" + slide.attributes.description + "</li>";
 	}
 
 });
 
+var CreateNewSlide = Backbone.View.extend({
+	el: $('#block'),
+	template: _.template($('.b-create-slider').html()),
+	events: {
+		"click .e-create": "create"
+	},
+	render: function () {
+		$(this.el).html(this.template());
+	},
+	create: function () {
+		
+		var desc = this.$el.find(".e-input-description").val();
+		console.log('create', desc);
+		MySlides.create({description: desc});
+	}
+});
 
 
 var Controller = Backbone.Router.extend({
     ushState: true,
     routes: {
-        "": "slide", // Пустой hash-тэг
-        "#": "slide", // Пустой hash-тэг
+        ""             : "slide", 
+        "slide/create" : "CreateNewSlide"
     },
-
     slide: function () {
+		console.log('slide');
+
         if (Views.slide != null) {
             Views.slide.render();
+        }
+    },
+    CreateNewSlide: function () {
+		console.log('1createSlide');
+
+    	if (Views.CreateNewSlide != null) {
+            Views.CreateNewSlide.render();
         }
     }
 });
 
 var Views = {
-	"slide": new Slide()
+	"slide"         : new Slide(),
+	"CreateNewSlide": new CreateNewSlide()
 }
 
 var controller = new Controller(); // Создаём контроллер
