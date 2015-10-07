@@ -15,7 +15,8 @@ module.exports = function(grunt) {
             'frontend/js/vendor/underscore/underscore.js',
             'frontend/js/vendor/backbone/backbone-min.js',
             'frontend/js/vendor/bootstrap/dist/js/bootstrap.min.js',
-            'frontend/js/app/**/*.js'
+            'frontend/js/app/**/*.js',
+            'frontend/js/router.js'
           ]
         }
       }
@@ -33,7 +34,7 @@ module.exports = function(grunt) {
     },
     watch: {
       scripts: {
-        files: ['frontend/js/app/*.js'],
+        files: ['frontend/js/app/**/*.js', 'frontend/js/router.js'],
         tasks: ['uglify']
       },
       css: {
